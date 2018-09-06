@@ -1,0 +1,24 @@
+<div class="header">
+  <div class="header-logo">
+    <img src="./assets/imgs/logo.svg" width="40"/>
+    <span class="header-logo-text">edu-admin</span>
+  </div>
+  <div class="header--right">
+    <div class="header-account">
+      <nz-dropdown [nzPlacement]="'bottomRight'">
+        <a nz-dropdown class="header-account-name">
+          {{util.user ? util.user.user_name : '小小'}} <i class="anticon anticon-down"></i>
+        </a>
+        <ul nz-menu>
+          <li nz-menu-item>
+            <a (click)="modifyPassword()"><i class="iconfont icon-shezhi1 mr15"></i>修改密码</a>
+          </li>
+          <nz-divider class="top-dropdown-divider"></nz-divider>
+          <li nz-menu-item>
+            <a (click)="logout()"><i class="iconfont icon-exit mr15"></i>退出</a>
+          </li>
+        </ul>
+    </nz-dropdown>
+    </div>
+  </div>
+</div>

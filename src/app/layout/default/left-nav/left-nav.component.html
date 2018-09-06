@@ -1,0 +1,19 @@
+<div class="left-nav" [ngClass]="{'ant-menu-inline-collapsed': isCollapsed}">
+  <div class="nav-dedent " [nzTitle]="isCollapsed ? '展开' : '关闭'"
+       nzPlacement="right" nz-tooltip
+       (click)="toggleCollapse()" >
+    <i class="iconfont icon-dedent"></i>
+  </div>
+  <ul nz-menu [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+    <li nz-menu-item *ngFor="let item of menuList"
+        [nzSelected]="item.routeUrl === activeMenu"
+        [nzTitle]="item.name" nzPlacement="right" nz-tooltip
+        (click)="menuSelect(item)"
+    >
+        <span title>
+         <i [ngClass]="item.iconCls" nz-tooltip class="iconfont mr24"></i>
+         <span>{{item.name}}</span>
+        </span>
+    </li>
+  </ul>
+</div>

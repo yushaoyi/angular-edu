@@ -1,0 +1,31 @@
+
+.global-footer {
+  padding: 48px 0 48px;
+  margin-top: -150px;
+
+  .footer-links {
+    color: rgba(0,0,0,.45);
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-align: center;
+
+    a {
+      color: rgba(0,0,0,.45);
+      transition: .3s;
+    }
+
+    a:not(:last-child) {
+      margin-right: 40px;
+    }
+  }
+
+  .footer-copyright {
+    color: rgba(0,0,0,.45);
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 1px;
+    i, a {
+      margin: 0 1px;
+    }
+  }
+}

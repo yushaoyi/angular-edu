@@ -1,0 +1,182 @@
+import {environment} from '../../../environments/environment';
+import {HttpClient, HttpErrorResponse, HttpParams, HttpResponse} from "@angular/common/http";
+import {Observable} from 'rxjs';
+import {HTTP_TIMEOUT} from '../const';
+import {Injector} from '@angular/core';
+// import {CoreService} from "../services/core.service";
+import { mergeMap, catchError, timeout } from 'rxjs/operators';
+/**
+ * http请求基础类
+ */
+export abstract class BaseRestService {
+  protected baseUrl: string = environment.SERVER_URL;
+  protected http: HttpClient;
+  // protected core: CoreService;
+  constructor(
+    private baseInjector: Injector) {
+    this.http = this.baseInjector.get(HttpClient);
+    // this.core = this.baseInjector.get(CoreService);
+  }
+
+  parseGetParams(url: string, obj?: object): string {
+    let i = 0;
+    let hasParam = false;
+    if (url.indexOf('?') !== -1) {
+      hasParam = true;
+    }
+    for (let key in obj) {
+      if (obj[key] === null || typeof obj[key] === 'undefined') {
+        continue;
+      }
+      if (i === 0 && !hasParam) {
+        hasParam = true
+        url += '?' + encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+      } else {
+        url += '&' + encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+      }
+    }
+    return url;
+  }
+
+  /**
+   *
+   * @param {string} url
+   * @param {Object} params
+   * @returns {Observable<any>}
+   */
+  protected getServer(url: string, params?: object): Observable<Object> {
+    url = this.baseUrl + url
+    url = this.parseGetParams(url, params);
+    return Observable.create( observer => {
+      this.http.get(url)
+        .subscribe(
+          data => {
+            observer.next(data);
+            observer.complete();
+          },
+          (err: HttpErrorResponse) => {
+            this.checkHandleError(err, observer);
+          }
+        );
+    });
+  }
+
+  /**
+   *
+   * @param {string} url
+   * @param body
+   * @param params
+   * @returns {Observable<any>}
+   */
+  // protected post(url: string, body?: any, params?: any): Observable<any> {
+  //   let paramsObj = new HttpParams();
+  //   for (let key in params) {
+  //     paramsObj = paramsObj.set(key, params[key]); // 需重新赋值
+  //   }
+  //   return this.http
+  //     .post(url, body || null, {
+  //       params: paramsObj
+  //     })
+  //     .do(() => {})
+  //     .catch((res) => {
+  //       return res;
+  //     });
+  // }
+  checkHandleError = (err: HttpErrorResponse, observer) => {
+    console.log(err);
+    if (err instanceof Error && err.name == 'TimeoutError') {
+      console.log('请求超时');
+      observer.error({});
+    } else {
+      let errObj = {};
+      if (err instanceof HttpResponse) {
+        errObj = err.body;
+      } else {
+        errObj = err.error;
+      }
+      observer.error(errObj);
+    }
+    observer.complete();
+  }
+  /**
+   *
+   * @param {string} url
+   * @param {Object} params
+   * @returns {Observable<any>}
+   */
+  protected postServer(url: string, params?: object): Observable<any> {
+    url = this.baseUrl + url
+    let paramsObj = new HttpParams();
+    for (let key in params) {
+      paramsObj = paramsObj.set(key, params[key]); // 需重新赋值
+    }
+    // console.log(paramsObj)
+    return Observable.create(observer => {
+      this.http.post(url, paramsObj)
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          (err: HttpErrorResponse) => {
+            this.checkHandleError(err, observer);
+          },
+          () => {
+            observer.complete();
+          }
+        );
+    });
+  }
+
+  protected putServer(url: string, params?: object): Observable<any> {
+    url = this.baseUrl + url
+    let paramsObj = new HttpParams();
+    for (let key in params) {
+      paramsObj = paramsObj.set(key, params[key]); // 需重新赋值
+    }
+    // console.log(paramsObj)
+    return Observable.create(observer => {
+      this.http.put(url, paramsObj)
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          (err: HttpErrorResponse) => {
+            this.checkHandleError(err, observer);
+          },
+          () => {
+            observer.complete();
+          }
+        );
+    });
+
+  }
+
+  protected deleteServer(url: string, params?: object): Observable<any> {
+    url = this.baseUrl + url
+    // let paramsObj = new HttpParams();
+    // for (let key in params) {
+    //   paramsObj = paramsObj.set(key, params[key]); // 需重新赋值
+    // }
+    // FIXME angular http delete 传递参数
+    // console.log(paramsObj)
+    return Observable.create(observer => {
+      // this.http.delete(url, paramsObj)
+      this.http.delete(url)
+        .subscribe(
+          data => {
+            observer.next(data);
+          },
+          (err: HttpErrorResponse) => {
+            this.checkHandleError(err, observer);
+          },
+          () => {
+            observer.complete();
+          }
+        );
+    });
+  }
+
+  protected joinGetServer(): Observable<any> {
+    return Observable.create(observer => {});
+  }
+}

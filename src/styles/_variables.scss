@@ -1,0 +1,42 @@
+// Layout Gutter
+$layout-gutter: 8px;
+
+$sm: $layout-gutter;
+$md: $layout-gutter * 2;
+$lg: $layout-gutter * 3;
+
+$content-header-border: #DFE3E5;
+$border-color-base      : #d9d9d9;        // base border outline a component
+$border-color-split     : #e9e9e9;        // split border inside a component
+
+$content-bg: #f2f3f7;
+
+// Media queries breakpoints
+// Extra small screen / phone
+$screen-xs              : 480px;
+$screen-xs-min          : $screen-xs;
+
+// Small screen / tablet
+$screen-sm              : 768px;
+$screen-sm-min          : $screen-sm;
+
+// Medium screen / desktop
+$screen-md              : 992px;
+$screen-md-min          : $screen-md;
+
+// Large screen / wide desktop
+$screen-lg              : 1200px;
+$screen-lg-min          : $screen-lg;
+
+// Extra Large screen / full hd
+$screen-xl              : 1600px;
+$screen-xl-min          : $screen-xl;
+
+// Modal
+$modal-lg:                    900px;
+$modal-md:                    500px;
+$modal-sm:                    300px;
+
+$margin-bottom-sm: $sm;
+$margin-bottom-md: $md;
+$margin-bottom-lg: $lg;

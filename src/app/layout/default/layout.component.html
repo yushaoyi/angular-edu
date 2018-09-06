@@ -1,0 +1,10 @@
+<div class="app">
+  <top-menu></top-menu>
+  <div class="layout-main">
+    <left-nav (onToggle)="onToggle($event)"></left-nav>
+    <div class="layout-content" [ngClass]="{'layout-content--collapsed': isCollapsed}">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

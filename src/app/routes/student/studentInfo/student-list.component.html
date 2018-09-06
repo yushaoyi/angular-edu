@@ -1,0 +1,65 @@
+<div class="student-page">
+  <div class="page-header">
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        首页
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a>学生列表</a>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <h1 class="page-title">
+      学生列表
+    </h1>
+  </div>
+
+  <div class="page-content">
+    <div class="table-form"></div>
+    <div class="table-operator">
+      <button nz-button nzType="primary" (click)="handleAddStudent()"><i class="anticon anticon-plus"></i>添加</button>
+    </div>
+    <div class="table-list">
+      <nz-table
+        #basicTable
+        [nzData]="results"
+        [nzFrontPagination]="false"
+        [nzShowTotal]="true"
+        [nzLoading]="isSearchLoading"
+        [nzTotal]="total"
+        [(nzPageIndex)]="params.pageIndex"
+        [(nzPageSize)]="params.pageSize"
+        (nzPageIndexChange)="search()"
+      >
+        <thead>
+        <tr>
+          <th>姓名</th>
+          <th>电话</th>
+          <th>性别</th>
+          <th>状态</th>
+          <th>创建时间</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of results">
+            <td>{{item.name}}</td>
+            <td>{{item.phone}}</td>
+            <td>{{item.sex | sexFilter}}</td>
+            <td>{{item.status | studentStatusFilter}}</td>
+            <td>{{item.create_date}}</td>
+            <td>
+              <a (click)="handleEditStudent(item)">编辑</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <load-text [isLoading]="item.isDeleteSubmit"
+                         (click)="handleDeleteStudent(item)">删除</load-text>
+              <!--<a load-text [isLoading]="item.isDeleteSubmit"-->
+                 <!--(click)="handleDeleteStudent(item)">删除</a>-->
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,29 @@
+//.ant-menu-vertical .ant-menu-item,
+//.ant-menu-inline .ant-menu-item,
+//.ant-menu-vertical .ant-menu-submenu-title,
+//.ant-menu-inline .ant-menu-submenu-title {
+//  font-size: 14px !important;
+//}
+//
+//.ant-menu-vertical,
+//.ant-menu-item,
+//.ant-menu-inline .ant-menu-item,
+//.ant-menu-vertical .ant-menu-submenu-title,
+//.ant-menu-inline .ant-menu-submenu-title {
+//  padding: 0 24px !important;
+//}
+.ant-menu-item .anticon, .ant-menu-submenu-title .anticon {
+  margin-right: 16px !important;
+}
+
+.ant-menu-inline-collapsed {
+  width: 64px;
+}
+
+.ant-menu-inline-collapsed>.ant-menu-item,
+.ant-menu-inline-collapsed>.ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-item,
+.ant-menu-inline-collapsed>.ant-menu-submenu>.ant-menu-submenu-title {
+  left: 0;
+  text-overflow: clip;
+  padding: 0 24px!important;
+}

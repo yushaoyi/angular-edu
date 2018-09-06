@@ -1,0 +1,34 @@
+.auth-page {
+  height: auto;
+  min-height: 100%;
+  padding: 112px 0 150px 0;
+
+  .auth-top {
+    .top-head {
+      text-align: center;
+
+      .top-head-logo {
+        width: 44px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 15px;
+      }
+
+      .top-head-title {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 33px;
+        color: rgba(0,0,0,.85);
+      }
+
+    }
+
+    .top-tips {
+      font-size: 14px;
+      color: rgba(0,0,0,.45);
+      margin-top: 12px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+  }
+}

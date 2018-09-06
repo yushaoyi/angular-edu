@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <div class="modal-title">{{model.title}}</div>
+</div>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm($event, validateForm.value)">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">姓名</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="name" placeholder="请输入姓名">
+      <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">
+        <ng-container *ngIf="validateForm.get('name').hasError('required')">
+          请输入姓名
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="phone">手机号</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <input nz-input formControlName="phone" placeholder="请输入手机号">
+      <nz-form-explain *ngIf="validateForm.get('phone').dirty && validateForm.get('phone').errors || validateForm.get('phone').pending">
+        <ng-container *ngIf="validateForm.get('phone').hasError('required')">
+          请输入手机号
+        </ng-container>
+        <ng-container *ngIf="validateForm.get('phone').hasError('phone')">
+         手机号格式不正确
+        </ng-container>
+        <ng-container *ngIf="validateForm.get('phone').pending">
+          检测账号是否可用...
+        </ng-container>
+        <ng-container *ngIf="validateForm.get('phone').hasError('exist')">
+          手机号已存在
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="sex">性别</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-radio-group formControlName="sex">
+        <label nz-radio [nzValue]="0">男</label>
+        <label nz-radio [nzValue]="1">女</label>
+      </nz-radio-group>
+      <nz-form-explain *ngIf="validateForm.get('sex').dirty && validateForm.get('sex').errors">
+        <ng-container *ngIf="validateForm.get('sex').hasError('required')">
+          请选择性别
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--<nz-form-item nz-row style="margin-bottom:8px;">-->
+    <!--<nz-form-control [nzSpan]="14" [nzOffset]="6">-->
+      <!--<button nz-button nzType="primary">保存</button>-->
+    <!--</nz-form-control>-->
+  <!--</nz-form-item>-->
+  <div class="modal-footer">
+    <button nz-button type="button" (click)="cancel()">取消</button>
+    <button nz-button type="submit" [nzLoading]="isSubmit" [nzType]="'primary'">保存</button>
+    <!--<button nz-button [disabled]="!validateForm.valid" [nzLoading]="isSubmit" [nzType]="'primary'">保存</button>-->
+  </div>
+</form>
